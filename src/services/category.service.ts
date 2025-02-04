@@ -1,6 +1,6 @@
 import { prisma } from "../database/database";
 import { HttpException } from "../exceptions/httpException";
-import { Category } from "@prisma/client";
+import { Category } from ".prisma/client";
 
 //TODO problema, mejor usar el patrón singleton
 
