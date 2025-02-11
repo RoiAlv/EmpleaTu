@@ -1,7 +1,7 @@
 import express, {Response, Request} from 'express'
 import authRouter from './routes/auth.routes'
 import userRouter from './routes/user.routes'
-import offerRouter from './routes/offer.routes'
+import offerRouter from './routes/offert.routes'
 import categoryRouter from './routes/category.routes'
 
 import rateLimit from 'express-rate-limit'

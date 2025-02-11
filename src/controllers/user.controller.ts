@@ -1,4 +1,4 @@
-import { HttpException } from "@/exceptions/httpException";
+import { HttpException } from "../exceptions/httpException";
 import { UserService } from "../services/user.service";
 import {Response, Request, NextFunction} from 'express'
 
