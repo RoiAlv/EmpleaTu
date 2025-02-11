@@ -1,5 +1,5 @@
-import { HttpException } from "../exceptions/httpException";
-import { OfferService } from "../services/offer.service";
+import { HttpException } from "@/exceptions/httpException";
+import { OfferService } from "@/services/offer.service";
 import {Response, Request, NextFunction} from 'express'
 
 export class OfferController{
@@ -18,6 +18,7 @@ export class OfferController{
 
     static async getAll(req:Request, res:Response, next: NextFunction){
         try{
+            //localhost:3000/offer?title=XXXXXX
             const { title } = req.query;
             const user = await OfferService.getAll(title as string)
             res.status(200).json(user)
@@ -29,10 +30,8 @@ export class OfferController{
     static async create(req:Request, res:Response, next: NextFunction){
         try{
             const offerData = req.body
-            const userId = req.body.user.id
-
+            const userId = req.user?.id
             if (!userId) throw new HttpException(400, "User creator ID is required");
-            
 
             const newOffer = await OfferService.create(userId, offerData)
             res.status(200).json(newOffer)
@@ -70,7 +69,8 @@ export class OfferController{
             if (isNaN(id)) throw new HttpException(400, "Invalid offer ID");
 
             const {value} = req.body
-            const userId = req.body.user.id
+            const userId = req.user?.id
+            if(!userId) throw new HttpException(400, "User creator ID is required");
 
             await OfferService.rate(userId, id, value)
             res.status(200).json({message: 'Offer rate successfully'})
