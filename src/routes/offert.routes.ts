@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { OfferController } from "../controllers/offer.controller";
-import { isAuthenticate } from "@/middlewares/auth.middleware";
+import { isAuthenticate } from "../middlewares/auth.middleware";
 const router = Router()
 
 //API REST FULL
