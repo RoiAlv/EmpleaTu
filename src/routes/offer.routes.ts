@@ -24,6 +24,7 @@ router.put('/:id',isAuthenticate,isAdmin, offerValidation, ValidationMiddleware,
 router.post('/:id/rate/',isAuthenticate, rateValidation, OfferController.rate)  
 // Vemos que calificación (total) se le ha data a una oferta X
 router.get('/:id/rate/', isAuthenticate, OfferController.getRate)
+router.get('/:id/myRate/', isAuthenticate, OfferController.getMyRate)
 
 
 
