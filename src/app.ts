@@ -23,7 +23,7 @@ app.use(cookieParser())
 //todo limitar cors
 //cambiar la url cuando deploy
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://cursos-for-all-frontend.onrender.com'],
+    origin: ['https://cursos-for-all-frontend.onrender.com'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
