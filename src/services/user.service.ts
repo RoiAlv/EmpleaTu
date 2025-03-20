@@ -17,7 +17,10 @@ export class UserService {
      }
     static async getAll(){
         const users = await prisma.user.findMany({
-            omit: {password:true}
+            omit: {password:true},
+            where:{
+            active: true
+            }
         })
         return users
     }
