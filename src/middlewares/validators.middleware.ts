@@ -27,4 +27,16 @@ export const categoryValidation = [
 export const rateValidation = [
     body('value').isInt({min:0, max:5}).toInt().withMessage('Value is required')
 ]
+
+export const quejaValidation = [
+    body('title')
+        .isLength({ min: 4, max: 100 }).withMessage('Title must be between 4 and 100 characters')
+        .notEmpty().withMessage('Title is required'),
+    body('description')
+        .isLength({ min: 10, max: 2000 }).withMessage('Description must be between 10 and 2000 characters')
+        .notEmpty().withMessage('Description is required'),
+    body('idUser')
+        .isInt().withMessage('User ID must be a valid number')
+        .notEmpty().withMessage('User ID is required')
+]
 //...

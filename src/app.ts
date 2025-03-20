@@ -10,6 +10,7 @@ import compression from 'compression'
 import cookieParser  from 'cookie-parser'
 import cors  from 'cors'
 import morgan from 'morgan'
+import router from './routes/queja.routes'
 
 const app = express()
 
@@ -43,6 +44,7 @@ app.use('/api/auth',authRouter)
 app.use('/api/users',userRouter)
 app.use('/api/offers', offerRouter)
 app.use('/api/categories', categoryRouter)
+app.use('/api/feedback', router)
 
 app.get('/', (req:Request, res:Response)=>{
     res.send('Bienvenido al backend (api rest)')

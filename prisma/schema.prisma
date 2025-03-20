@@ -15,65 +15,80 @@ datasource db {
 }
 
 model User {
-  id        Int   @id   @default(autoincrement())
-  name      String
-  surname   String?
-  email     String  @unique
-  password  String
-  role      String? // admin  vip   null
-  course    String?
-  active    Boolean   @default(true)
-  accepNotifications Boolean @default(true)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt  
+  id                    Int      @id @default(autoincrement())
+  name                  String
+  surname               String?
+  email                 String   @unique
+  password              String
+  role                  String?  // admin  vip   null
+  course                String?
+  active                Boolean  @default(true)
+  accepNotifications    Boolean  @default(true)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt  
   
-  offers    Offer[]
-  rates     Rate[]
+  offers                Offer[]
+  rates                 Rate[]
+  quejas                Queja[] // Relación con Queja
 }
 
 model Offer {
-  id            Int   @id   @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   title         String
   description   String?
   active        Boolean   @default(true)
   contactEmail  String?
   location      String? 
-  published     DateTime @default(now()) // iso8601
+  published     DateTime  @default(now()) // iso8601
   expired       DateTime  // iso8601
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt   
 
-  //FK
+  // Foreign keys
   idCategory    Int?
   category      Category? @relation(fields: [idCategory], references: [id])
 
   idUserCreator Int
-  userCreator   User  @relation(fields: [idUserCreator], references: [id])
+  userCreator   User     @relation(fields: [idUserCreator], references: [id])
 
-  rates   Rate[]
+  rates         Rate[]
 }
 
-model Category{
-  id            Int   @id   @default(autoincrement())
-  name          String @unique
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
 
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt   
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt   
 
-  offers       Offer[]
+  offers    Offer[]
 }
 
-model Rate{
+model Rate {
   idUser  Int
   idOffer Int
   value   Int  
 
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt   
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt   
 
   user  User  @relation(fields: [idUser], references: [id])
-  offer  Offer  @relation(fields: [idOffer], references: [id])
+  offer Offer @relation(fields: [idOffer], references: [id])
 
   @@id([idUser, idOffer])
+}
+
+model Queja {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Foreign key
+  idUser      Int
+  user        User     @relation(fields: [idUser], references: [id])
+
+  @@index([idUser])
 }
