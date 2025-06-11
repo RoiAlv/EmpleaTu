@@ -4,28 +4,27 @@ import { ValidationMiddleware } from "../middlewares/validation.middleware";
 import { OfferController } from "../controllers/offer.controller";
 import { isAuthenticate } from "../middlewares/auth.middleware";
 import { isAdmin } from "../middlewares/isAdmin.middleware";
-const router = Router()
 
-//API REST FULL
+const router = Router();
 
+// Listar todas las ofertas - solo admin
+router.get('/', isAuthenticate, isAdmin, OfferController.getAll);
 
-//GET Listar todas las ofertas localhost:3000/api/offers/?title=react&category=dam
-router.get('/', isAuthenticate, OfferController.getAll)
-//localhost:3000/api/offers/xxxx
-router.get('/:id', isAuthenticate, OfferController.getById)
-//POST añadir una oferta nueva localhost:3000/api/offers/  {body}
-router.post('/', isAuthenticate, isAdmin, offerValidation, ValidationMiddleware, OfferController.create)
-//DELETE Borrar una oferta localhost:3000/api/offers/XXXX  
-router.delete('/:id',isAuthenticate,isAdmin, OfferController.delete)
-//PUT modificar una oferta localhost:3000/api/offers/XXXX  {body}
-router.put('/:id',isAuthenticate,isAdmin, offerValidation, ValidationMiddleware, OfferController.update)   
+// Ver una oferta por id - solo admin
+router.get('/:id', isAuthenticate, isAdmin, OfferController.getById);
 
-// Calificamos una oferta x   {body}
-router.post('/:id/rate/',isAuthenticate, rateValidation, OfferController.rate)  
-// Vemos que calificación (total) se le ha data a una oferta X
-router.get('/:id/rate/', isAuthenticate, OfferController.getRate)
-router.get('/:id/myRate/', isAuthenticate, OfferController.getMyRate)
+// Crear un nuevo pedido/oferta - usuarios autenticados (user o admin)
+router.post('/', isAuthenticate, offerValidation, ValidationMiddleware, OfferController.create);
 
+// Borrar una oferta - solo admin
+router.delete('/:id', isAuthenticate, isAdmin, OfferController.delete);
 
+// Modificar una oferta - solo admin
+router.put('/:id', isAuthenticate, isAdmin, offerValidation, ValidationMiddleware, OfferController.update);
 
-export default router
+// Rutas para valorar - usuarios autenticados
+router.post('/:id/rate/', isAuthenticate, rateValidation, OfferController.rate);
+router.get('/:id/rate/', isAuthenticate, OfferController.getRate);
+router.get('/:id/myRate/', isAuthenticate, OfferController.getMyRate);
+
+export default router;
