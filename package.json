@@ -1,5 +1,5 @@
 {
-  "name": "empleatetu",
+  "name": "lafrazione",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "prisma:migrate": "prisma migrate dev --preview-feature"
   },
   "keywords": [],
-  "author": "Angel",
+  "author": "Roi",
   "license": "ISC",
   "description": "",
   "devDependencies": {
